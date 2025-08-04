@@ -1,0 +1,121 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+// --- Program 1: Matrix Transpose ---
+void matrixTranspose() {
+    int rows, cols;
+    printf("Enter number of rows and columns for the matrix: ");
+    scanf("%d %d", &rows, &cols);
+
+    int matrix[rows][cols];
+    int transpose[cols][rows];
+
+    printf("Enter matrix elements:\n");
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < cols; j++) {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+
+    // Calculating transpose
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < cols; j++) {
+            transpose[j][i] = matrix[i][j];
+        }
+    }
+
+    printf("Transpose of the matrix is:\n");
+    for(int i = 0; i < cols; i++) {
+        for(int j = 0; j < rows; j++) {
+            printf("%d ", transpose[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+// --- Program 2: Word Frequency Count in Paragraph ---
+void wordFrequency() {
+    char paragraph[1000];
+    printf("Enter a paragraph:\n");
+    getchar(); // To consume leftover newline from previous input
+    fgets(paragraph, sizeof(paragraph), stdin);
+
+    // Remove trailing newline
+    size_t len = strlen(paragraph);
+    if(len > 0 && paragraph[len - 1] == '\n') paragraph[len - 1] = '\0';
+
+    // Convert to lowercase and remove punctuation
+    for(int i = 0; paragraph[i]; i++) {
+        paragraph[i] = tolower(paragraph[i]);
+        if (ispunct(paragraph[i])) {
+            paragraph[i] = ' ';
+        }
+    }
+
+    // Tokenize the paragraph into words
+    char *words[500];
+    int count[500] = {0};
+    int wordCount = 0;
+
+    char *token = strtok(paragraph, " ");
+    while(token != NULL) {
+        // Check if word already exists
+        int found = 0;
+        for(int i = 0; i < wordCount; i++) {
+            if(strcmp(words[i], token) == 0) {
+                count[i]++;
+                found = 1;
+                break;
+            }
+        }
+        if(!found) {
+            words[wordCount] = token;
+            count[wordCount] = 1;
+            wordCount++;
+        }
+        token = strtok(NULL, " ");
+    }
+
+    printf("\nWord Frequencies:\n");
+    for(int i = 0; i < wordCount; i++) {
+        printf("%s : %d\n", words[i], count[i]);
+    }
+}
+
+int main() {
+    int choice;
+
+    while(1) {
+        printf("\nChoose an option:\n");
+        printf("1. Matrix Transpose\n");
+        printf("2. Word Frequency Count\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch(choice) {
+            case 1:
+                matrixTranspose();
+                break;
+            case 2:
+                wordFrequency();
+                break;
+            case 3:
+                printf("Exiting...\n");
+                return 0;
+            default:
+                printf("Invalid choice. Try again.\n");
+        }
+    }
+    return 0;
+}
+
+
+
+//ques 4
+https://github.com/maximetinu/Dijkstra-C/blob/master/dijkstra's_algo.cpp
+
+
+
+
